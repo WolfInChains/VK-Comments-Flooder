@@ -43,7 +43,7 @@ for pht in photo_data:
     photo.append(pht)
 f.close()
 
-vk_session = vk_api.VkApi(token=token, captcha_handler=captcha_handler)
+vk_session = vk_api.VkApi(token=token[0], captcha_handler=captcha_handler)
 vk = vk_session.get_api()
 
 while True:
