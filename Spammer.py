@@ -20,6 +20,12 @@ def get_post(pattern: str):
       data = pattern.split("wall")
       return data[1]
 
+def get_photo(pattern: str):
+  if "z=" in pattern:
+      data_1 = pattern.split("z=")
+      data_2 = data_1[1].split("%")
+      return data_2[0]
+
 token = []
 text = []
 photo = []
@@ -40,7 +46,8 @@ f = open("photos.txt", "r")
 data = f.read()
 photo_data = data.split('::')
 for pht in photo_data:
-    photo.append(pht)
+    phto = get_photo(pht)
+    photo.append(phto)
 f.close()
 
 vk_session = vk_api.VkApi(token=token[0], captcha_handler=captcha_handler)
