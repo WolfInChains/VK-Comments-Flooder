@@ -17,8 +17,9 @@ def create_comment_text_and_photo(msg, atch):
 
 def get_post(pattern: str):
   if "w=" in pattern:
-      data = pattern.split("wall")
-      return data[1]
+      data_1 = pattern.split("wall")
+      data_2 = data_1[1].split("%")
+      return data_2[0]
 
 def get_photo(pattern: str):
   if "z=" in pattern:
