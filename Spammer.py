@@ -71,90 +71,56 @@ vk = vk_session.get_api()
 
 while True:
     try:
+        pht = []
 
-        print('1 - флуд под фото\n2 - флуд под постом')
-        func = int(input('\nВыберите функцию: '))
+        print('1 - спам текстом\n2 - спам фото\n3 - спам текстом и фото\n')
 
-        if func == 1:
-            print('\n1 - спам текстом\n2 - спам фото\n3 - спам текстом и фото\n')
+        funct = int(input('Выберите функцию: '))
+        photo_link = input('Ссылка на фото/пост: ')
+        if 'z=photo' in photo_link:
+            pht.append(get_photo_post(photo_link))
+        if 'w=wall' in photo_link:
+            pht.append(get_post(photo_link))
+        data = pht[0].split('_')
+        msg_count = int(input('Количество комментариев: '))
 
-            funct = int(input('Выберите функцию: '))
-
-            photo_link = input('Ссылка на фото: ')
-            pht = get_photo_post(photo_link)
-            data = pht.split('_')
-
-            msg_count = int(input('Количество комментариев: '))
-
-            print('')
-
-            msg_num = 0
-            if funct == 1:
-                for comments in range(msg_count):
-                    time_to_sleep = random.uniform(0.100, 0.250)
-                    msg = random.choice(text)
+        print('')
+        msg_num = 0
+        if funct == 1:
+            for comments in range(msg_count):
+                time_to_sleep = random.uniform(0.100, 0.250)
+                msg = random.choice(text)
+                if 'z=photo' in photo_link:
                     create_photo_comment_text(msg)
-                    msg_num += 1
-                    print(f'Комментарий {msg_num} отправлен')
-                    time.sleep(0.1)
-            if funct == 2:
-                for comments in range(msg_count):
-                    time_to_sleep = random.uniform(0.100, 0.250)
-                    phto = random.choice(photo)
-                    create_photo_comment_photo(phto)
-                    msg_num += 1
-                    print(f'Комментарий {msg_num} отправлен')
-                    time.sleep(0.1)
-            if funct == 3:
-                for comments in range(msg_count):
-                    time_to_sleep = random.uniform(0.100, 0.250)
-                    msg = random.choice(text)
-                    phto = random.choice(photo)
-                    create_photo_comment_text_and_photo(msg, phto)
-                    msg_num += 1
-                    print(f'Комментарий {msg_num} отправлен')
-                    time.sleep(time_to_sleep)
-            print('')
-        if func == 2:
-            print('\n1 - спам текстом\n2 - спам фото\n3 - спам текстом и фото\n')
-
-            funct = int(input('Выберите функцию: '))
-
-            post_link = input('Ссылка на пост: ')
-            post = get_post(post_link)
-            data = post.split('_')
-
-            msg_count = int(input('Количество комментариев: '))
-
-            print('')
-
-            msg_num = 0
-            if funct == 1:
-                for comments in range(msg_count):
-                    time_to_sleep = random.uniform(0.100, 0.250)
-                    msg = random.choice(text)
+                if 'w=wall' in photo_link:
                     create_post_comment_text(msg)
-                    msg_num += 1
-                    print(f'Комментарий {msg_num} отправлен')
-                    time.sleep(0.1)
-            if funct == 2:
-                for comments in range(msg_count):
-                    time_to_sleep = random.uniform(0.100, 0.250)
-                    phto = random.choice(photo)
+                msg_num += 1
+                print(f'Комментарий {msg_num} отправлен')
+                time.sleep(0.1)
+        if funct == 2:
+            for comments in range(msg_count):
+                time_to_sleep = random.uniform(0.100, 0.250)
+                phto = random.choice(photo)
+                if 'z=photo' in photo_link:
+                    create_photo_comment_photo(phto)
+                if 'w=wall' in photo_link:
                     create_post_comment_photo(phto)
-                    msg_num += 1
-                    print(f'Комментарий {msg_num} отправлен')
-                    time.sleep(0.1)
-            if funct == 3:
-                for comments in range(msg_count):
-                    time_to_sleep = random.uniform(0.100, 0.250)
-                    msg = random.choice(text)
-                    phto = random.choice(photo)
+                msg_num += 1
+                print(f'Комментарий {msg_num} отправлен')
+                time.sleep(0.1)
+        if funct == 3:
+            for comments in range(msg_count):
+                time_to_sleep = random.uniform(0.100, 0.250)
+                msg = random.choice(text)
+                phto = random.choice(photo)
+                if 'z=photo' in photo_link:
+                    create_photo_comment_text_and_photo(msg, phto)
+                if 'w=wall' in photo_link:
                     create_post_comment_text_and_photo(msg, phto)
-                    msg_num += 1
-                    print(f'Комментарий {msg_num} отправлен')
-                    time.sleep(time_to_sleep)
-            print('')
+                msg_num += 1
+                print(f'Комментарий {msg_num} отправлен')
+                time.sleep(time_to_sleep)
+        print('')
 
     except Exception as e:
         print(repr(e))
