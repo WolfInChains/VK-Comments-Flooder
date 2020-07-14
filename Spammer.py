@@ -6,23 +6,11 @@ def captcha_handler(captcha):
     key = input("Введите капчу {0}: ".format(captcha.get_url())).strip()
     return captcha.try_again(key)
 
-def create_post_comment_text(msg):
-    vk.wall.createComment(owner_id=int(data[0]), post_id=int(data[1]), message=msg)
+def create_post_comment(message: str, attachment: str = ""):
+    vk.wall.createComment(owner_id=int(data[0]), post_id=int(data[1]), **locals())
 
-def create_post_comment_photo(atch):
-    vk.wall.createComment(owner_id=int(data[0]), post_id=int(data[1]), attachments=atch)
-
-def create_post_comment_text_and_photo(msg, atch):
-    vk.wall.createComment(owner_id=int(data[0]), post_id=int(data[1]), message=msg, attachments=atch)
-
-def create_photo_comment_text(msg):
-    vk.photos.createComment(owner_id=int(data[0]), photo_id=int(data[1]), message=msg)
-
-def create_photo_comment_photo(atch):
-    vk.photos.createComment(owner_id=int(data[0]), photo_id=int(data[1]), attachments=atch)
-
-def create_photo_comment_text_and_photo(msg, atch):
-    vk.photos.createComment(owner_id=int(data[0]), photo_id=int(data[1]), message=msg, attachments=atch)
+def create_photo_comment(message: str, attachment: str = ""):
+    vk.photos.createComment(owner_id=int(data[0]), photo_id=int(data[1]), **locals())
 
 def get_post(pattern: str):
   if "w=" in pattern:
@@ -91,9 +79,9 @@ while True:
                 time_to_sleep = random.uniform(0.100, 0.250)
                 msg = random.choice(text)
                 if 'z=photo' in photo_link:
-                    create_photo_comment_text(msg)
+                    create_photo_comment(msg)
                 if 'w=wall' in photo_link:
-                    create_post_comment_text(msg)
+                    create_post_comment(msg)
                 msg_num += 1
                 print(f'Комментарий {msg_num} отправлен')
                 time.sleep(0.1)
@@ -102,9 +90,9 @@ while True:
                 time_to_sleep = random.uniform(0.100, 0.250)
                 phto = random.choice(photo)
                 if 'z=photo' in photo_link:
-                    create_photo_comment_photo(phto)
+                    create_photo_comment('', phto)
                 if 'w=wall' in photo_link:
-                    create_post_comment_photo(phto)
+                    create_post_comment('', phto)
                 msg_num += 1
                 print(f'Комментарий {msg_num} отправлен')
                 time.sleep(0.1)
@@ -114,9 +102,9 @@ while True:
                 msg = random.choice(text)
                 phto = random.choice(photo)
                 if 'z=photo' in photo_link:
-                    create_photo_comment_text_and_photo(msg, phto)
+                    create_photo_comment(msg, phto)
                 if 'w=wall' in photo_link:
-                    create_post_comment_text_and_photo(msg, phto)
+                    create_post_comment(msg, phto)
                 msg_num += 1
                 print(f'Комментарий {msg_num} отправлен')
                 time.sleep(time_to_sleep)
