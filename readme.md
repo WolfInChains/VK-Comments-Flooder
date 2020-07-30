@@ -11,7 +11,7 @@
 ```
 https://vk.com/testers?z=photo-84585194_429185043%2Falbum-84585194_0%2Frev::https://vk.com/testers?z=photo-84585194_457243712%2Fphotos-84585194
 ```
-В файл token.txt просто вставляем токен от страницы
+В файл token.txt просто вставляем [токен](https://oauth.vk.com/authorize?client_id=2685278&scope=1073737727&redirect_uri=https://oauth.vk.com/blank.html&display=page&response_type=token&revoke=1) от страницы
 ## Компиляция
 Чтобы собрать все в .exe файл используем команду:
 ```
